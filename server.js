@@ -13,7 +13,7 @@ app.post('/todos', function (request, response) {
   var count = Object.keys(todos).length + 1
   todos[count] = {
     text: request.body.text.trim(),
-    completed: 'false'
+    completed: false
   }
   response.json(todos)
 })
@@ -32,9 +32,9 @@ app.put('/todos/:id', function (request, response) {
     todo.text = request.body.text.trim()
   }
   if (request.body.completed !== undefined) {
-    todo.completed = request.body.completed.trim()
+    todo.completed = request.body.completed === true
   }
-  response.json(todos)
+  response.json(todos[request.params.id])
 })
 
 app.delete('/todos/:id', function (request, response) {
